@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shirts Reviving — Fade to Black Specialists</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a0d11;
+    --brick: #0e1218;
+    --brick-line: #171c24;
+    --cyan: #4fd3f0;
+    --cyan-bright: #9be9fb;
+    --cyan-dim: #1c4a58;
+    --cyan-deep: #0c2830;
+    --grey-faded: #9c9184;
+    --white: #edf3f7;
+    --ink: #060809;
+    --danger: #f0784f;
+    --panel: #11151b;
+    --panel-line: #23303a;
+    --radius: 4px;
+    --font-display: 'Anton', sans-serif;
+    --font-body: 'Work Sans', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background:
+      repeating-linear-gradient(0deg, var(--brick-line) 0 2px, transparent 2px 42px),
+      repeating-linear-gradient(90deg, var(--brick-line) 0 2px, transparent 2px 84px),
+      var(--brick);
+    background-blend-mode: normal;
+    color: var(--white);
+    font-family: var(--font-body);
+    min-height: 100vh;
+  }
+
+  a{ color: inherit; }
+
+  :focus-visible{
+    outline: 2px solid var(--cyan-bright);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    border-bottom: 2px solid var(--cyan-dim);
+    padding: 28px 24px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before{
+    content:"";
+    position:absolute; inset:0;
+    background: radial-gradient(ellipse 60% 100% at 50% 0%, rgba(79,211,240,0.10), transparent 70%);
+    pointer-events:none;
+  }
+  .logo{
+    font-family: var(--font-display);
+    font-size: clamp(32px, 7vw, 64px);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--white);
+    text-shadow: 0 0 14px rgba(79,211,240,0.55), 0 0 2px var(--cyan-bright);
+    margin: 0;
+    line-height: 1;
+  }
+  .tagline{
+    font-family: var(--font-mono);
+    color: var(--cyan);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 12px;
+    margin: 10px 0 0;
+  }
+  .subnote{
+    display:flex; justify-content:center; gap: 24px; flex-wrap:wrap;
+    margin-top: 14px;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #8a97a1;
+    font-family: var(--font-mono);
+  }
+
+  nav.tabs{
+    display:flex; justify-content:center; gap: 4px;
+    margin-top: 22px;
+    flex-wrap: wrap;
+  }
+  nav.tabs button{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background: transparent;
+    border: 1px solid var(--panel-line);
+    color: #8a97a1;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: var(--radius);
+    transition: all .15s ease;
+  }
+  nav.tabs button:hover{ border-color: var(--cyan-dim); color: var(--cyan-bright); }
+  nav.tabs button.active{
+    background: var(--cyan);
+    border-color: var(--cyan);
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  main{
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 36px 20px 80px;
+  }
+  .panel{ display:none; }
+  .panel.active{ display:block; animation: fadein .25s ease; }
+  @keyframes fadein{ from{opacity:0; transform: translateY(6px);} to{opacity:1; transform:none;} }
+
+  h2.section-title{
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: clamp(22px,4vw,30px);
+    color: var(--white);
+    margin: 0 0 4px;
+  }
+  p.section-sub{
+    color: #8a97a1;
+    margin: 0 0 26px;
+    font-size: 14px;
+  }
+
+  /* ---------- Cards / Panels ---------- */
+  .card{
+    background: var(--panel);
+    border: 1px solid var(--panel-line);
+    border-radius: var(--radius);
+    padding: 24px;
+  }
+  .grid-2{
+    display:grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+  @media (max-width: 760px){ .grid-2{ grid-template-columns: 1fr; } }
+
+  label{
+    display:block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 6px;
+  }
+  input[type="text"], input[type="tel"], input[type="date"], select, textarea{
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--panel-line);
+    color: var(--white);
+    padding: 11px 12px;
+    border-radius: var(--radius);
+    font-family: var(--font-body);
+    font-size: 14px;
+  }
+  input:focus, select:focus, textarea:focus{ border-color: var(--cyan); }
+  .field{ margin-bottom: 16px; }
+  .field-row{ display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  /* ---------- Item builder ---------- */
+  .item-row{
+    display:grid;
+    grid-template-columns: 1fr 70px 90px auto;
+    gap: 10px;
+    align-items: end;
+    margin-bottom: 14px;
+  }
+  @media (max-width: 480px){ .item-row{ grid-template-columns: 1fr; } }
+  .price-tag{ font-family: var(--font-mono); font-size: 12px; color: #8a97a1; padding-top: 10px; }
+  button.btn{
+    font-family: var(--font-mono);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 12px;
+    border-radius: var(--radius);
+    border: 1px solid var(--cyan-dim);
+    background: transparent;
+    color: var(--cyan);
+    padding: 11px 16px;
+    cursor: pointer;
+    transition: all .15s ease;
+  }
+  button.btn:hover{ background: var(--cyan-deep); }
+  button.btn-solid{
+    background: var(--cyan);
+    color: var(--ink);
+    border-color: var(--cyan);
+    font-weight: 700;
+  }
+  button.btn-solid:hover{ background: var(--cyan-bright); border-color: var(--cyan-bright); }
+  button.btn-danger{ border-color: #5a3226; color: var(--danger); }
+  button.btn-danger:hover{ background: #2a1712; }
+  button.btn-block{ width:100%; padding: 14px; font-size: 13px; }
+  button:disabled{ opacity: .4; cursor: not-allowed; }
+
+  .combo-row{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom: 22px; }
+  .combo-chip{
+    border: 1px dashed var(--cyan-dim);
+    border-radius: var(--radius);
+    padding: 10px 14px;
+    font-size: 12px;
+    font-family: var(--font-mono);
+    color: var(--cyan-bright);
+    cursor:pointer;
+    background: rgba(79,211,240,0.04);
+  }
+  .combo-chip:hover{ border-style: solid; background: var(--cyan-deep); }
+  .combo-chip small{ display:block; color:#8a97a1; margin-top:2px; }
+
+  /* ---------- Cart / receipt ---------- */
+  .cart-list{ list-style:none; padding:0; margin: 0 0 14px; }
+  .cart-list li{
+    display:flex; justify-content:space-between; gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--panel-line);
+    font-size: 14px;
+  }
+  .cart-list li span.remove{ cursor:pointer; color: var(--danger); font-family: var(--font-mono); font-size: 11px; margin-left:8px; }
+  .cart-empty{ color:#5a6570; font-size: 13px; font-style: italic; padding: 10px 0; }
+  .total-row{
+    display:flex; justify-content:space-between; align-items:baseline;
+    padding-top: 14px; margin-top: 6px; border-top: 1px solid var(--panel-line);
+  }
+  .total-row .amount{ font-family: var(--font-display); font-size: 30px; color: var(--cyan-bright); }
+  .total-row .label{ font-family: var(--font-mono); font-size: 12px; text-transform:uppercase; letter-spacing:1px; color:#8a97a1; }
+
+  /* ---------- Status sphere (signature element) ---------- */
+  .status-block{ text-align:center; padding: 10px 0 6px; }
+  .sphere-wrap{
+    position: relative;
+    width: 100%;
+    max-width: 460px;
+    height: 150px;
+    margin: 0 auto 6px;
+  }
+  .shirt{
+    position: absolute; top: 50%; width: 62px; height: 62px;
+    transform: translateY(-50%);
+  }
+  .shirt.faded{ left: 6%; }
+  .shirt.jet{ right: 6%; }
+  .sphere{
+    position: absolute; left: 50%; top: 50%;
+    width: 130px; height: 130px;
+    border-radius: 50%;
+    transform: translate(-50%,-50%);
+    background: radial-gradient(circle at 50% 40%, var(--sphere-core, #1c2b30) 0%, var(--sphere-mid, #14343f) 45%, var(--sphere-edge, #0c1b20) 100%);
+    box-shadow: 0 0 0 1px rgba(79,211,240,0.25), 0 0 40px var(--sphere-glow, rgba(79,211,240,0.15));
+    transition: all .8s ease;
+  }
+  .sphere.pulsing{ animation: pulse 1.8s ease-in-out infinite; }
+  @keyframes pulse{
+    0%,100%{ box-shadow: 0 0 0 1px rgba(79,211,240,0.25), 0 0 30px var(--sphere-glow, rgba(79,211,240,0.15)); }
+    50%{ box-shadow: 0 0 0 1px rgba(79,211,240,0.4), 0 0 55px var(--sphere-glow, rgba(79,211,240,0.3)); }
+  }
+  .status-caption{
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 13px;
+    color: var(--cyan-bright);
+    margin-top: 4px;
+  }
+  .status-sub{ font-size: 13px; color: #8a97a1; margin-top: 4px; }
+
+  .stepper{
+    display:flex; justify-content: space-between;
+    max-width: 460px; margin: 22px auto 0;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #4a5560;
+  }
+  .stepper .step{ flex:1; text-align:center; position:relative; padding-top: 14px; }
+  .stepper .step::before{
+    content:""; position:absolute; top:0; left:50%; width:9px; height:9px;
+    border-radius:50%; background:#2a333c; transform: translateX(-50%);
+  }
+  .stepper .step.done{ color: var(--cyan-bright); }
+  .stepper .step.done::before{ background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
+  .stepper .step.current{ color: var(--white); }
+
+  .ready-banner{
+    display:none;
+    margin: 24px 0 0;
+    padding: 18px 20px;
+    border: 1px solid var(--cyan);
+    border-radius: var(--radius);
+    background: linear-gradient(180deg, rgba(79,211,240,0.12), rgba(79,211,240,0.03));
+    text-align:center;
+  }
+  .ready-banner.show{ display:block; }
+  .ready-banner .headline{
+    font-family: var(--font-display);
+    font-size: 20px;
+    color: var(--cyan-bright);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .ready-banner p{ margin: 6px 0 0; font-size: 13px; color: #c3d3da; }
+
+  /* ---------- Track lookup ---------- */
+  .lookup-row{ display:flex; gap: 10px; max-width: 460px; margin: 0 auto 30px; }
+  .lookup-row input{ flex:1; }
+  #trackResult{ display:none; }
+  #trackResult.show{ display:block; }
+  #trackEmpty{ text-align:center; color:#5a6570; font-size: 13px; padding: 30px 0; }
+
+  .order-meta{ display:grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 22px 0; font-size: 13px; }
+  .order-meta div span.k{ display:block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px; text-transform:uppercase; color: #8a97a1; margin-bottom: 3px; }
+
+  /* ---------- Owner dashboard ---------- */
+  .gate{ max-width: 380px; margin: 40px auto; text-align:center; }
+  .gate p{ color:#8a97a1; font-size: 13px; }
+  .stat-row{ display:grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 26px; }
+  @media (max-width: 640px){ .stat-row{ grid-template-columns: repeat(2,1fr); } }
+  .stat-card{ background: var(--panel); border:1px solid var(--panel-line); border-radius: var(--radius); padding: 16px; text-align:center; }
+  .stat-card .num{ font-family: var(--font-display); font-size: 28px; color: var(--cyan-bright); }
+  .stat-card .lbl{ font-family: var(--font-mono); font-size: 10px; letter-spacing:1px; text-transform:uppercase; color:#8a97a1; margin-top:4px; }
+
+  .order-card{
+    background: var(--panel); border: 1px solid var(--panel-line); border-radius: var(--radius);
+    padding: 16px 18px; margin-bottom: 12px;
+  }
+  .order-card-top{ display:flex; justify-content:space-between; align-items:flex-start; gap: 10px; flex-wrap:wrap; }
+  .order-id{ font-family: var(--font-mono); color: var(--cyan-bright); font-size: 13px; }
+  .order-name{ font-size: 15px; font-weight: 600; margin-top: 2px; }
+  .order-phone{ font-size: 12px; color:#8a97a1; }
+  .badge{
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+    padding: 5px 10px; border-radius: 20px; border: 1px solid var(--panel-line); white-space:nowrap;
+  }
+  .badge.received{ color: var(--grey-faded); border-color: var(--grey-faded); }
+  .badge.dyeing{ color: #f0c94f; border-color: #5a4f26; }
+  .badge.ready{ color: var(--cyan-bright); border-color: var(--cyan); background: rgba(79,211,240,0.08); }
+  .badge.collected{ color: #5a6570; border-color: #2a333c; }
+  .order-items{ font-size: 13px; color: #c3d3da; margin: 10px 0 4px; }
+  .order-drop{ font-size: 12px; color: #8a97a1; }
+  .order-actions{ display:flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+
+  .empty-state{ text-align:center; padding: 50px 20px; color: #5a6570; }
+  .empty-state .em-title{ font-family: var(--font-display); font-size: 20px; color: #8a97a1; text-transform: uppercase; margin-bottom: 6px; }
+
+  footer{ text-align:center; padding: 30px 20px 50px; color: #4a5560; font-size: 11px; font-family: var(--font-mono); letter-spacing: 1px; }
+
+  .toast{
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: var(--panel); border: 1px solid var(--cyan); color: var(--white);
+    padding: 12px 20px; border-radius: var(--radius); font-size: 13px;
+    opacity: 0; pointer-events: none; transition: all .3s ease; z-index: 100;
+    max-width: 90vw; text-align: center;
+  }
+  .toast.show{ opacity:1; transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1 class="logo">Shirts Reviving!</h1>
+  <p class="tagline">( Fade to Black Specialists )</p>
+  <div class="subnote">
+    <span>100% Cotton Only</span>
+    <span>SPU Drop-off &amp; Collect</span>
+  </div>
+  <nav class="tabs">
+    <button data-tab="order" class="active">New Order</button>
+    <button data-tab="track">Track Order</button>
+    <button data-tab="owner">Owner Dashboard</button>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ============ NEW ORDER ============ -->
+  <section id="order" class="panel active">
+    <h2 class="section-title">Book a revival</h2>
+    <p class="section-sub">Build your order, pick a drop-off slot at SPU, and we'll take it from faded to jet black.</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="field-row">
+          <div class="field">
+            <label for="custName">Name</label>
+            <input type="text" id="custName" placeholder="Your name" autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="custPhone">Phone number</label>
+            <input type="tel" id="custPhone" placeholder="e.g. 072 345 6789" autocomplete="tel">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="dropDate">Drop-off date</label>
+            <input type="date" id="dropDate">
+          </div>
+          <div class="field">
+            <label for="dropTime">Drop-off time</label>
+            <select id="dropTime">
+              <option value="">Select a slot</option>
+              <option>08:00 – 09:00</option>
+              <option>09:00 – 10:00</option>
+              <option>10:00 – 11:00</option>
+              <option>11:00 – 12:00</option>
+              <option>13:00 – 14:00</option>
+              <option>14:00 – 15:00</option>
+              <option>15:00 – 16:00</option>
+            </select>
+          </div>
+        </div>
+
+        <label>Quick combos</label>
+        <div class="combo-row">
+          <div class="combo-chip" data-combo="2shirts">2 Shirts — R90 <small>Save R10</small></div>
+          <div class="combo-chip" data-combo="hoodiejeans">Hoodie + Jeans — R200 <small>Save R30–R50</small></div>
+          <div class="combo-chip" data-combo="mystery">3-Item Mystery Bucket — R220 <small>Any 3 cotton items</small></div>
+        </div>
+
+        <label>Add items individually</label>
+        <div class="item-row">
+          <div>
+            <select id="itemType">
+              <option value="tshirt" data-price="65">T-Shirt — R65</option>
+              <option value="shorts" data-price="70">Shorts / Skirt — R70</option>
+              <option value="jeans" data-price="110">Jeans / Cargos — R110</option>
+              <option value="hoodie" data-price="110">Hoodie — R110</option>
+            </select>
+          </div>
+          <div>
+            <input type="text" id="itemQty" value="1" inputmode="numeric">
+          </div>
+          <div class="price-tag" id="itemLinePrice">R65</div>
+          <div><button class="btn btn-block" id="addItemBtn" type="button">Add item</button></div>
+        </div>
+
+        <div class="field">
+          <label for="notes">Notes for us (optional)</label>
+          <textarea id="notes" rows="2" placeholder="e.g. one shirt has a bleach stain on the sleeve"></textarea>
+        </div>
+      </div>
+
+      <div class="card">
+        <label style="margin-bottom:14px;">Your order</label>
+        <ul class="cart-list" id="cartList">
+          <li class="cart-empty">No items yet — add something on the left.</li>
+        </ul>
+        <div class="total-row">
+          <span class="label">Total</span>
+          <span class="amount" id="cartTotal">R0</span>
+        </div>
+        <div style="margin-top:20px;">
+          <button class="btn btn-solid btn-block" id="submitOrderBtn" type="button">Lock in order</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Confirmation -->
+    <div class="card" id="confirmCard" style="display:none; margin-top: 24px;">
+      <div class="status-block">
+        <p class="status-caption">Order locked in</p>
+        <p style="font-family: var(--font-mono); font-size: 22px; color: var(--white);" id="confirmId"></p>
+        <p class="status-sub">Save this order ID — you'll need it (or your phone number) to track your revival.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TRACK ORDER ============ -->
+  <section id="track" class="panel">
+    <h2 class="section-title">Track your revival</h2>
+    <p class="section-sub">Enter your order ID or the phone number you booked with.</p>
+
+    <div class="lookup-row">
+      <input type="text" id="lookupInput" placeholder="Order ID or phone number">
+      <button class="btn btn-solid" id="lookupBtn" type="button">Check</button>
+    </div>
+
+    <div id="trackEmpty">No order looked up yet.</div>
+
+    <div id="trackResult" class="card">
+      <div class="status-block">
+        <div class="sphere-wrap">
+          <svg class="shirt faded" viewBox="0 0 100 100" fill="none"><path d="M30 15 L45 8 L55 8 L70 15 L85 30 L72 42 L65 35 L65 90 L35 90 L35 35 L28 42 L15 30 Z" stroke="#9c9184" stroke-width="4" fill="rgba(156,145,132,0.15)"/></svg>
+          <div class="sphere" id="trackSphere"></div>
+          <svg class="shirt jet" viewBox="0 0 100 100" fill="none"><path d="M30 15 L45 8 L55 8 L70 15 L85 30 L72 42 L65 35 L65 90 L35 90 L35 35 L28 42 L15 30 Z" stroke="#4fd3f0" stroke-width="4" fill="rgba(79,211,240,0.08)"/></svg>
+        </div>
+        <p class="status-caption" id="trackCaption">Dropped off</p>
+        <p class="status-sub" id="trackSub"></p>
+
+        <div class="stepper" id="trackStepper">
+          <div class="step" data-step="received">Dropped Off</div>
+          <div class="step" data-step="dyeing">In the Dye</div>
+          <div class="step" data-step="ready">Ready to Collect</div>
+          <div class="step" data-step="collected">Collected</div>
+        </div>
+
+        <div class="ready-banner" id="readyBanner">
+          <div class="headline">Ready for delivery!</div>
+          <p>Your order is jet black and waiting. Come collect it from the SPU drop-off point.</p>
+        </div>
+      </div>
+
+      <div class="order-meta">
+        <div><span class="k">Order ID</span><span id="mId"></span></div>
+        <div><span class="k">Name</span><span id="mName"></span></div>
+        <div><span class="k">Items</span><span id="mItems"></span></div>
+        <div><span class="k">Total</span><span id="mTotal"></span></div>
+        <div><span class="k">Drop-off</span><span id="mDrop"></span></div>
+        <div><span class="k">Notes</span><span id="mNotes"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ OWNER DASHBOARD ============ -->
+  <section id="owner" class="panel">
+    <div id="ownerGate" class="gate">
+      <h2 class="section-title" style="text-align:center;">Owner access</h2>
+      <p>Enter your access code to open the dashboard.</p>
+      <div class="field">
+        <input type="text" id="ownerCode" placeholder="Access code">
+      </div>
+      <button class="btn btn-solid btn-block" id="ownerUnlockBtn" type="button">Unlock dashboard</button>
+      <p style="font-size:11px; color:#4a5560; margin-top:14px;">Default code: REVIVE2026 — change it in the code before you launch.</p>
+    </div>
+
+    <div id="ownerPanel" style="display:none;">
+      <h2 class="section-title">Owner dashboard</h2>
+      <p class="section-sub">Move orders through the wash and let people know when they're ready.</p>
+
+      <div class="stat-row">
+        <div class="stat-card"><div class="num" id="statTotal">0</div><div class="lbl">Total Orders</div></div>
+        <div class="stat-card"><div class="num" id="statDyeing">0</div><div class="lbl">In the Dye</div></div>
+        <div class="stat-card"><div class="num" id="statReady">0</div><div class="lbl">Ready</div></div>
+        <div class="stat-card"><div class="num" id="statRevenue">R0</div><div class="lbl">Revenue</div></div>
+      </div>
+
+      <div id="ordersList"></div>
+
+      <div style="text-align:center; margin-top:30px;">
+        <button class="btn btn-danger" id="clearDataBtn" type="button">Clear all demo data</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>Shirts Reviving — SPU Campus · 100% Cotton Only</footer>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  var STORE_KEY = "shirtsReviving.orders";
+  var OWNER_CODE = "REVIVE2026";
+
+  var PRICES = { tshirt: 65, shorts: 70, jeans: 110, hoodie: 110 };
+  var LABELS = { tshirt: "T-Shirt", shorts: "Shorts / Skirt", jeans: "Jeans / Cargos", hoodie: "Hoodie" };
+
+  var COMBOS = {
+    "2shirts": { label: "Combo: 2 Shirts", price: 90 },
+    "hoodiejeans": { label: "Combo: Hoodie + Jeans", price: 200 },
+    "mystery": { label: "Combo: 3-Item Mystery Bucket", price: 220 }
+  };
+
+  var STAGE_ORDER = ["received", "dyeing", "ready", "collected"];
+  var STAGE_LABEL = {
+    received: "Dropped off",
+    dyeing: "In the dye",
+    ready: "Ready for delivery",
+    collected: "Collected"
+  };
+  var STAGE_SUB = {
+    received: "We've got it. Dyeing starts soon.",
+    dyeing: "Fading out, going jet black.",
+    ready: "Jet black and waiting for you at SPU.",
+    collected: "Picked up. Thanks for using Shirts Reviving."
+  };
+
+  // ---------- storage helpers ----------
+  function loadOrders(){
+    try{
+      var raw = localStorage.getItem(STORE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    }catch(e){ return {}; }
+  }
+  function saveOrders(orders){
+    localStorage.setItem(STORE_KEY, JSON.stringify(orders));
+  }
+  function genId(){
+    var chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    var s = "";
+    for(var i=0;i<5;i++){ s += chars[Math.floor(Math.random()*chars.length)]; }
+    return "SR-" + s;
+  }
+
+  function toast(msg){
+    var t = document.getElementById("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    setTimeout(function(){ t.classList.remove("show"); }, 3000);
+  }
+
+  // ---------- tabs ----------
+  var tabButtons = document.querySelectorAll("nav.tabs button");
+  var panels = document.querySelectorAll(".panel");
+  tabButtons.forEach(function(btn){
+    btn.addEventListener("click", function(){
+      tabButtons.forEach(function(b){ b.classList.remove("active"); });
+      panels.forEach(function(p){ p.classList.remove("active"); });
+      btn.classList.add("active");
+      document.getElementById(btn.dataset.tab).classList.add("active");
+      if(btn.dataset.tab === "owner"){ renderOwner(); }
+    });
+  });
+
+  // ---------- NEW ORDER logic ----------
+  var cart = [];
+
+  var itemTypeSel = document.getElementById("itemType");
+  var itemQtyInput = document.getElementById("itemQty");
+  var itemLinePrice = document.getElementById("itemLinePrice");
+
+  function updateLinePrice(){
+    var price = PRICES[itemTypeSel.value];
+    var qty = Math.max(1, parseInt(itemQtyInput.value, 10) || 1);
+    itemLinePrice.textContent = "R" + (price * qty);
+  }
+  itemTypeSel.addEventListener("change", updateLinePrice);
+  itemQtyInput.addEventListener("input", updateLinePrice);
+  updateLinePrice();
+
+  document.getElementById("addItemBtn").addEventListener("click", function(){
+    var type = itemTypeSel.value;
+    var qty = Math.max(1, parseInt(itemQtyInput.value, 10) || 1);
+    cart.push({
+      label: LABELS[type] + (qty > 1 ? " × " + qty : ""),
+      total: PRICES[type] * qty
+    });
+    itemQtyInput.value = "1";
+    updateLinePrice();
+    renderCart();
+  });
+
+  document.querySelectorAll(".combo-chip").forEach(function(chip){
+    chip.addEventListener("click", function(){
+      var combo = COMBOS[chip.dataset.combo];
+      cart.push({ label: combo.label, total: combo.price });
+      renderCart();
+      toast(combo.label + " added");
+    });
+  });
+
+  function renderCart(){
+    var list = document.getElementById("cartList");
+    list.innerHTML = "";
+    if(cart.length === 0){
+      list.innerHTML = '<li class="cart-empty">No items yet — add something on the left.</li>';
+    } else {
+      cart.forEach(function(item, idx){
+        var li = document.createElement("li");
+        var left = document.createElement("span");
+        left.textContent = item.label;
+        var right = document.createElement("span");
+        right.textContent = "R" + item.total;
+        var rm = document.createElement("span");
+        rm.textContent = "remove";
+        rm.className = "remove";
+        rm.addEventListener("click", function(){ cart.splice(idx,1); renderCart(); });
+        right.appendChild(rm);
+        li.appendChild(left);
+        li.appendChild(right);
+        list.appendChild(li);
+      });
+    }
+    var total = cart.reduce(function(sum, i){ return sum + i.total; }, 0);
+    document.getElementById("cartTotal").textContent = "R" + total;
+  }
+
+  document.getElementById("submitOrderBtn").addEventListener("click", function(){
+    var name = document.getElementById("custName").value.trim();
+    var phone = document.getElementById("custPhone").value.trim();
+    var date = document.getElementById("dropDate").value;
+    var time = document.getElementById("dropTime").value;
+    var notes = document.getElementById("notes").value.trim();
+
+    if(!name || !phone){ toast("Add your name and phone number"); return; }
+    if(!date || !time){ toast("Pick a drop-off date and time"); return; }
+    if(cart.length === 0){ toast("Add at least one item"); return; }
+
+    var orders = loadOrders();
+    var id = genId();
+    while(orders[id]){ id = genId(); }
+
+    var total = cart.reduce(function(sum, i){ return sum + i.total; }, 0);
+
+    orders[id] = {
+      id: id,
+      name: name,
+      phone: phone,
+      items: cart.slice(),
+      total: total,
+      dropDate: date,
+      dropTime: time,
+      notes: notes,
+      status: "received",
+      createdAt: Date.now(),
+      history: [{ status: "received", time: Date.now() }]
+    };
+    saveOrders(orders);
+
+    document.getElementById("confirmId").textContent = id;
+    document.getElementById("confirmCard").style.display = "block";
+    document.getElementById("confirmCard").scrollIntoView({ behavior: "smooth", block: "center" });
+
+    cart = [];
+    renderCart();
+    document.getElementById("custName").value = "";
+    document.getElementById("custPhone").value = "";
+    document.getElementById("dropDate").value = "";
+    document.getElementById("dropTime").value = "";
+    document.getElementById("notes").value = "";
+  });
+
+  renderCart();
+
+  // ---------- TRACK logic ----------
+  var lastSeenStatus = {};
+  var pollTimer = null;
+
+  function findOrder(query){
+    var orders = loadOrders();
+    query = query.trim();
+    if(orders[query]) return orders[query];
+    var upper = query.toUpperCase();
+    if(orders[upper]) return orders[upper];
+    var digits = query.replace(/\D/g, "");
+    if(digits.length >= 6){
+      var match = null;
+      Object.keys(orders).forEach(function(k){
+        if(orders[k].phone.replace(/\D/g, "") === digits){ match = orders[k]; }
+      });
+      if(match) return match;
+    }
+    return null;
+  }
+
+  function renderTrack(order){
+    document.getElementById("trackEmpty").style.display = "none";
+    var result = document.getElementById("trackResult");
+    result.classList.add("show");
+
+    var sphere = document.getElementById("trackSphere");
+    var idx = STAGE_ORDER.indexOf(order.status);
+    var frac = idx / (STAGE_ORDER.length - 1);
+
+    var core = mixColor("#3a352c", "#8fe9fb", frac);
+    var mid = mixColor("#1f2226", "#14343f", frac);
+    var glow = "rgba(79,211,240," + (0.12 + frac * 0.45) + ")";
+    sphere.style.setProperty("--sphere-core", core);
+    sphere.style.setProperty("--sphere-mid", mid);
+    sphere.style.setProperty("--sphere-glow", glow);
+    sphere.classList.toggle("pulsing", order.status === "dyeing");
+
+    document.getElementById("trackCaption").textContent = STAGE_LABEL[order.status];
+    document.getElementById("trackSub").textContent = STAGE_SUB[order.status];
+
+    document.querySelectorAll("#trackStepper .step").forEach(function(step){
+      var stepIdx = STAGE_ORDER.indexOf(step.dataset.step);
+      step.classList.toggle("done", stepIdx <= idx);
+      step.classList.toggle("current", stepIdx === idx);
+    });
+
+    document.getElementById("readyBanner").classList.toggle("show", order.status === "ready");
+
+    document.getElementById("mId").textContent = order.id;
+    document.getElementById("mName").textContent = order.name;
+    document.getElementById("mItems").textContent = order.items.map(function(i){ return i.label; }).join(", ");
+    document.getElementById("mTotal").textContent = "R" + order.total;
+    document.getElementById("mDrop").textContent = order.dropDate + " · " + order.dropTime;
+    document.getElementById("mNotes").textContent = order.notes || "—";
+
+    if(lastSeenStatus[order.id] && lastSeenStatus[order.id] !== "ready" && order.status === "ready"){
+      notifyReady(order);
+    }
+    lastSeenStatus[order.id] = order.status;
+  }
+
+  function mixColor(a, b, t){
+    function hex(c){ return parseInt(c, 16); }
+    var ar = hex(a.slice(1,3)), ag = hex(a.slice(3,5)), ab = hex(a.slice(5,7));
+    var br = hex(b.slice(1,3)), bg = hex(b.slice(3,5)), bb = hex(b.slice(5,7));
+    var r = Math.round(ar + (br-ar)*t), g = Math.round(ag + (bg-ag)*t), bl = Math.round(ab + (bb-ab)*t);
+    return "rgb(" + r + "," + g + "," + bl + ")";
+  }
+
+  function notifyReady(order){
+    toast("🎉 " + order.id + " is ready for delivery!");
+    if("Notification" in window && Notification.permission === "granted"){
+      new Notification("Shirts Reviving", { body: order.id + " is ready for delivery — come collect at SPU!" });
+    }
+  }
+
+  function doLookup(){
+    var q = document.getElementById("lookupInput").value;
+    if(!q.trim()){ toast("Enter an order ID or phone number"); return; }
+    var order = findOrder(q);
+    if(!order){
+      document.getElementById("trackResult").classList.remove("show");
+      document.getElementById("trackEmpty").style.display = "block";
+      document.getElementById("trackEmpty").textContent = "No order found for that ID or phone number.";
+      return;
+    }
+    if("Notification" in window && Notification.permission === "default"){
+      Notification.requestPermission();
+    }
+    renderTrack(order);
+    if(pollTimer) clearInterval(pollTimer);
+    pollTimer = setInterval(function(){
+      var fresh = findOrder(order.id);
+      if(fresh) renderTrack(fresh);
+    }, 4000);
+  }
+  document.getElementById("lookupBtn").addEventListener("click", doLookup);
+  document.getElementById("lookupInput").addEventListener("keydown", function(e){
+    if(e.key === "Enter") doLookup();
+  });
+
+  // ---------- OWNER dashboard ----------
+  document.getElementById("ownerUnlockBtn").addEventListener("click", function(){
+    var code = document.getElementById("ownerCode").value.trim();
+    if(code === OWNER_CODE){
+      document.getElementById("ownerGate").style.display = "none";
+      document.getElementById("ownerPanel").style.display = "block";
+      renderOwner();
+    } else {
+      toast("Wrong code");
+    }
+  });
+  document.getElementById("ownerCode").addEventListener("keydown", function(e){
+    if(e.key === "Enter") document.getElementById("ownerUnlockBtn").click();
+  });
+
+  function nextStatus(status){
+    var idx = STAGE_ORDER.indexOf(status);
+    return STAGE_ORDER[Math.min(idx + 1, STAGE_ORDER.length - 1)];
+  }
+  var ACTION_LABEL = {
+    received: "Start dyeing",
+    dyeing: "Mark ready for delivery",
+    ready: "Mark collected",
+    collected: null
+  };
+
+  function renderOwner(){
+    var panel = document.getElementById("ownerPanel");
+    if(panel.style.display === "none") return;
+
+    var orders = loadOrders();
+    var list = Object.keys(orders).map(function(k){ return orders[k]; })
+      .sort(function(a,b){ return b.createdAt - a.createdAt; });
+
+    var totalOrders = list.length;
+    var dyeingCount = list.filter(function(o){ return o.status === "dyeing"; }).length;
+    var readyCount = list.filter(function(o){ return o.status === "ready"; }).length;
+    var revenue = list.reduce(function(sum, o){ return sum + o.total; }, 0);
+
+    document.getElementById("statTotal").textContent = totalOrders;
+    document.getElementById("statDyeing").textContent = dyeingCount;
+    document.getElementById("statReady").textContent = readyCount;
+    document.getElementById("statRevenue").textContent = "R" + revenue;
+
+    var container = document.getElementById("ordersList");
+    container.innerHTML = "";
+
+    if(list.length === 0){
+      container.innerHTML = '<div class="empty-state"><div class="em-title">No orders yet</div>Orders placed on the New Order tab will show up here.</div>';
+      return;
+    }
+
+    list.forEach(function(order){
+      var card = document.createElement("div");
+      card.className = "order-card";
+
+      var itemsText = order.items.map(function(i){ return i.label; }).join(", ");
+
+      card.innerHTML =
+        '<div class="order-card-top">' +
+          '<div>' +
+            '<div class="order-id">' + order.id + '</div>' +
+            '<div class="order-name">' + escapeHtml(order.name) + '</div>' +
+            '<div class="order-phone">' + escapeHtml(order.phone) + '</div>' +
+          '</div>' +
+          '<span class="badge ' + order.status + '">' + STAGE_LABEL[order.status] + '</span>' +
+        '</div>' +
+        '<div class="order-items">' + escapeHtml(itemsText) + ' — R' + order.total + '</div>' +
+        '<div class="order-drop">Drop-off: ' + order.dropDate + ' · ' + order.dropTime + '</div>' +
+        (order.notes ? '<div class="order-drop">Note: ' + escapeHtml(order.notes) + '</div>' : '');
+
+      var actions = document.createElement("div");
+      actions.className = "order-actions";
+
+      var actionLabel = ACTION_LABEL[order.status];
+      if(actionLabel){
+        var advanceBtn = document.createElement("button");
+        advanceBtn.className = "btn btn-solid";
+        advanceBtn.textContent = actionLabel;
+        advanceBtn.addEventListener("click", function(){ advanceOrder(order.id); });
+        actions.appendChild(advanceBtn);
+      }
+      if(order.status !== "collected"){
+        var readyBtn = document.createElement("button");
+        readyBtn.className = "btn";
+        readyBtn.textContent = "Jump to ready for delivery";
+        readyBtn.style.display = order.status === "ready" ? "none" : "";
+        readyBtn.addEventListener("click", function(){ setOrderStatus(order.id, "ready"); });
+        actions.appendChild(readyBtn);
+      }
+
+      card.appendChild(actions);
+      container.appendChild(card);
+    });
+  }
+
+  function escapeHtml(s){
+    var div = document.createElement("div");
+    div.textContent = s == null ? "" : s;
+    return div.innerHTML;
+  }
+
+  function advanceOrder(id){
+    var orders = loadOrders();
+    var order = orders[id];
+    if(!order) return;
+    setOrderStatus(id, nextStatus(order.status));
+  }
+
+  function setOrderStatus(id, status){
+    var orders = loadOrders();
+    var order = orders[id];
+    if(!order) return;
+    order.status = status;
+    order.history.push({ status: status, time: Date.now() });
+    orders[id] = order;
+    saveOrders(orders);
+    renderOwner();
+    if(status === "ready"){
+      toast(id + " marked ready for delivery");
+    }
+  }
+
+  document.getElementById("clearDataBtn").addEventListener("click", function(){
+    if(confirm("This deletes every order stored in this browser. Continue?")){
+      localStorage.removeItem(STORE_KEY);
+      renderOwner();
+      toast("All demo data cleared");
+    }
+  });
+
+  // set min date on drop-off date input to today
+  (function(){
+    var today = new Date();
+    var iso = today.toISOString().slice(0,10);
+    document.getElementById("dropDate").min = iso;
+  })();
+
+})();
+</script>
+</body>
+</html>
